@@ -8,7 +8,26 @@
     "start": "react-native start",
     "test": "jest",
     "prepare": "husky install",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+
+    "setDevelopment":"ENVFILE=.env.development",
+    "setStaging":"ENVFILE=.env.staging",
+    "setProduction":"ENVFILE=.env.production",
+   
+
+    "aos:dev":"yarn setDevelopment &&  react-native run-android --mode=developmentDebug --appIdSuffix=development",
+    "aos:dev-release":"yarn setDevelopment &&  react-native run-android --mode=developmentRelease--appIdSuffix=development",
+
+    "aos:staging":"yarn setStaging && react-native run-android --mode=stagingDebug --appIdSuffix=staging",
+    "aos:staging-release":"yarn setStaging &&  react-native run-android --mode=stagingRelease --appIdSuffix=staging",
+
+    "aos:prod":"yarn setProduction && react-native run-android --mode=productionDebug --appIdSuffix=production",
+    "aos:prod-release":"yarn setProduction &&  react-native run-android --mode=productionRelease --appIdSuffix=production"
+
+    
+
+
+
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -23,7 +42,8 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.72.0"
+    "react-native": "0.72.0",
+    "react-native-config": "^1.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",
