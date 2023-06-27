@@ -42,6 +42,8 @@ function App(): JSX.Element {
     const isDarkMode = useColorScheme() === 'dark';
     const backgroundColor = isDarkMode ? 'black' : 'white';
 
+    const isFrom = config.APP_CONFIG ?? '';
+
     return (
         <SafeAreaView style={[iStyles.screenContainer, { backgroundColor }]}>
             <StatusBar
@@ -54,7 +56,7 @@ function App(): JSX.Element {
                         Hi Sathish K,
                     </Text>
                     <Text style={[iStyles.greetingText, iStyles.font]}>
-                        I am from ${config.APP_CONFIG}
+                        {`I am from ${isFrom}`}
                     </Text>
                 </View>
             </View>
