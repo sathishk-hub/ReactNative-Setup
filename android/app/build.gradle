@@ -1,6 +1,17 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
+apply from: project(':react-native-config').projectDir.getPath() + '/dotenv.gradle'
+
+
+project.ext.envConfigFiles = [
+        development: ".env.development",
+        staging :".env.staging",
+        production:'.env.production'
+]
+
+
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -68,18 +79,22 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.reactnativesetup"
+    namespace 'com.reactnativesetup'
     defaultConfig {
-        applicationId "com.reactnativesetup"
+        applicationId 'com.reactnativesetup'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        resValue 'string', 'build_config_package','com.reactnativesetup'
+        archivesBaseName = "ReactNative_Setup_App-v$versionCode($versionName)"
+
     }
     signingConfigs {
         debug {
@@ -99,6 +114,22 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    flavorDimensions 'env'
+    productFlavors {
+        development {
+            dimension 'env'
+            applicationIdSuffix ".development"
+        }
+        staging {
+            dimension 'env'
+            applicationIdSuffix ".staging"
+        }
+        production {
+            dimension 'env'
+            applicationIdSuffix ""
         }
     }
 }
