@@ -33,6 +33,14 @@ module.exports = {
         sourceType: 'module',
     },
     plugins: ['react', '@typescript-eslint', 'react-native', 'prettier'],
+    overrides: [
+        {
+            // feel free to replace with your preferred file pattern - eg. 'src/**/*Slice.ts'
+            files: ['**/slice.ts'],
+            // avoid state param assignment
+            rules: { 'no-param-reassign': ['error', { props: false }] },
+        },
+    ],
     rules: {
         'react/jsx-filename-extension': [
             'error',
@@ -48,5 +56,8 @@ module.exports = {
         'react-native/no-color-literals': 'error',
         'react-native/no-raw-text': 'error',
         'react-native/no-single-element-style-arrays': 'error',
+        'react/jsx-props-no-spreading': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
     },
 };

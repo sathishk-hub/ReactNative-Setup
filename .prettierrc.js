@@ -6,4 +6,5 @@ module.exports = {
     trailingComma: 'all',
     tabWidth: 4,
     semi: true,
+    'max-line-length': 100,
 };
