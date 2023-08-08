@@ -1,8 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { type RootStackParams } from './RootStackParams';
-
-const Home = React.lazy(async () => import('../pages/home/index'));
+import Home from '../pages/home';
 
 const Stack = createStackNavigator<RootStackParams>();
 

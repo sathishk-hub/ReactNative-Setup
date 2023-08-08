@@ -15,6 +15,8 @@ import {
     useColorScheme,
 } from 'react-native';
 import config from 'react-native-config';
+import FastImage from 'react-native-fast-image';
+import { ScrollView } from 'react-native-gesture-handler';
 import AppColors from '../../utils/AppColors';
 
 import usePhotoService from '../../services/photo/service';
@@ -23,7 +25,8 @@ const iStyles = StyleSheet.create({
     screenContainer: {
         flex: 1,
     },
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    container: { margin: 20 },
+    photosContainer: { margin: 20, alignItems: 'center' },
     greetingContainer: {
         borderColor: AppColors.green,
         borderWidth: 1,
@@ -38,10 +41,15 @@ const iStyles = StyleSheet.create({
         color: AppColors.black,
         marginTop: 5,
     },
+    img: {
+        width: 200,
+        height: 200,
+        margin: 10,
+    },
 });
 
 function Home(): JSX.Element {
-    const { fetchAllPhotos } = usePhotoService();
+    const { photos, fetchAllPhotos } = usePhotoService();
 
     useEffect(() => {
         fetchAllPhotos();
@@ -58,16 +66,44 @@ function Home(): JSX.Element {
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
                 backgroundColor={backgroundColor}
             />
-            <View style={iStyles.container}>
-                <View style={iStyles.greetingContainer}>
-                    <Text style={[iStyles.greetingText, iStyles.font]}>
-                        Hi Sathish K,
-                    </Text>
-                    <Text style={[iStyles.greetingText, iStyles.font]}>
-                        {`I am from ${isFrom}`}
-                    </Text>
+            <ScrollView>
+                <View style={iStyles.container}>
+                    <View style={iStyles.greetingContainer}>
+                        <Text style={[iStyles.greetingText, iStyles.font]}>
+                            Hi Sathish K,
+                        </Text>
+                        <Text style={[iStyles.greetingText, iStyles.font]}>
+                            {`I am from ${isFrom}`}
+                        </Text>
+                    </View>
                 </View>
-            </View>
+                <View style={iStyles.photosContainer}>
+                    {photos?.map(item => {
+                        return (
+                            <View>
+                                <FastImage
+                                    style={iStyles.img}
+                                    source={{
+                                        uri: 'https://unsplash.it/400/400?image=1',
+                                        headers: {
+                                            Authorization: 'someAuthToken',
+                                        },
+                                        priority: FastImage.priority.normal,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
+                                <Text
+                                    style={[
+                                        iStyles.greetingText,
+                                        iStyles.font,
+                                    ]}>
+                                    {item.title}
+                                </Text>
+                            </View>
+                        );
+                    })}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }
