@@ -5,10 +5,20 @@ import Home from '../pages/home';
 
 const Stack = createStackNavigator<RootStackParams>();
 
+const routes: Array<React.ComponentProps<typeof Stack.Screen>> = [
+    {
+        name: 'Home',
+        component: Home,
+    },
+];
+
 function RootStack(): JSX.Element {
     return (
         <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home} />
+            {routes.map(routeConfig => (
+                <Stack.Screen key={routeConfig.name} {...routeConfig} />
+            ))}
+            {/* <Stack.Screen name="Home" component={Home} /> */}
         </Stack.Navigator>
     );
 }
