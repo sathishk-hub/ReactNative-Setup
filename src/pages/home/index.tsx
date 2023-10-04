@@ -5,7 +5,6 @@
  * @format
  */
 
-import React, { useEffect } from 'react';
 import {
     SafeAreaView,
     StatusBar,
@@ -14,19 +13,17 @@ import {
     View,
     useColorScheme,
 } from 'react-native';
-import config from 'react-native-config';
-import FastImage from 'react-native-fast-image';
-import { ScrollView } from 'react-native-gesture-handler';
-import AppColors from '../../utils/AppColors';
 
-import usePhotoService from '../../services/photo/service';
+import React from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
+import config from 'react-native-config';
+import AppColors from '../../utils/AppColors';
 
 const iStyles = StyleSheet.create({
     screenContainer: {
         flex: 1,
     },
     container: { margin: 20 },
-    photosContainer: { margin: 20, alignItems: 'center' },
     greetingContainer: {
         borderColor: AppColors.green,
         borderWidth: 1,
@@ -41,20 +38,9 @@ const iStyles = StyleSheet.create({
         color: AppColors.black,
         marginTop: 5,
     },
-    img: {
-        width: 200,
-        height: 200,
-        margin: 10,
-    },
 });
 
 function Home(): JSX.Element {
-    const { photos, fetchAllPhotos } = usePhotoService();
-
-    useEffect(() => {
-        fetchAllPhotos();
-    }, [fetchAllPhotos]);
-
     const isDarkMode = useColorScheme() === 'dark';
     const backgroundColor = isDarkMode ? 'black' : 'white';
 
@@ -76,32 +62,6 @@ function Home(): JSX.Element {
                             {`I am from ${isFrom}`}
                         </Text>
                     </View>
-                </View>
-                <View style={iStyles.photosContainer}>
-                    {photos?.map(item => {
-                        return (
-                            <View>
-                                <FastImage
-                                    style={iStyles.img}
-                                    source={{
-                                        uri: 'https://unsplash.it/400/400?image=1',
-                                        headers: {
-                                            Authorization: 'someAuthToken',
-                                        },
-                                        priority: FastImage.priority.normal,
-                                    }}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                                <Text
-                                    style={[
-                                        iStyles.greetingText,
-                                        iStyles.font,
-                                    ]}>
-                                    {item.title}
-                                </Text>
-                            </View>
-                        );
-                    })}
                 </View>
             </ScrollView>
         </SafeAreaView>

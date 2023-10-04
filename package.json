@@ -52,7 +52,9 @@
         "aos:staging:release-apk": "yarn aos:SR-apk && yarn open-apk",
         "aos:prod-apk": "yarn aos:PD-apk && yarn open-apk",
         "aos:prod:release-apk": "yarn aos:PR-apk && yarn open-apk",
-        "aos:bundle": "yarn aos:PR-Bundle && yarn open-bundle"
+        "aos:bundle": "yarn aos:PR-Bundle && yarn open-bundle",
+        "ra": "yarn aos:dev",
+        "ri": "yarn ios:dev"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [
@@ -126,7 +128,7 @@
         "metro-react-native-babel-preset": "0.76.5",
         "prettier": "^2.8.8",
         "react-test-renderer": "18.2.0",
-        "typescript": "*"
+        "typescript": "5.0.4"
     },
     "engines": {
         "node": ">=16"
